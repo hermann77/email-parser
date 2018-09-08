@@ -331,7 +331,7 @@ delete
 your own text from the message returned below.
 
 Reason:
-<mesen@arcor.de>: host mx004.vodafonemail.xion.oxcs.net[157.97.76.175] s=
+<mesen-test-test@arcor.de>: host mx004.vodafonemail.xion.oxcs.net[157.97.76.175] s=
 aid:
     550 5.5.0 Unknown Recipient OX_500 (in reply to RCPT TO command)
 
@@ -346,8 +346,8 @@ X-BorderWare-Security-Platform-Queue-ID: 1F802400774B1013
 X-BorderWare-Security-Platform-Sender: rfc822; schwarz@dipf.de
 Arrival-Date: Mon,  2 Jul 2018 17:43:21 +0200 (CEST)
 
-Final-Recipient: rfc822; mesen@arcor.de
-Original-Recipient: rfc822;mesen@arcor.de
+Final-Recipient: rfc822; mesen-test-test@arcor.de
+Original-Recipient: rfc822;mesen-test-test@arcor.de
 Action: failed
 Status: 5.5.0
 Remote-MTA: dns; mx004.vodafonemail.xion.oxcs.net
@@ -361,7 +361,7 @@ Content-Transfer-Encoding: 8bit
 Return-Path: <schwarz@dipf.de>
 Date: Mon, 2 Jul 2018 18:37:24 +0200
 Message-Id: <201807021637.w62GbORu026433@bildungsserver.de>
-To: mesen@arcor.de
+To: mesen-test@arcor.de
 Subject: LiD-Newsletter  /18
 X-PHP-Originating-Script: 516:email.send.php
 From: newsletter@lesen-in-deutschland.de

@@ -53,7 +53,7 @@ public class ParserMain {
 	private static String extractEmailAddress(String line) {
 
 	    String address = null;
-		Pattern pattern = Pattern.compile("[\\w.]+@[\\w.]+");
+		Pattern pattern = Pattern.compile("[\\w.-]+@[\\w.-]+");
 	    Matcher matcher = pattern.matcher(line);
 	    while(matcher.find()){
 	    	address = matcher.group();
