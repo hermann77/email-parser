@@ -2,6 +2,7 @@ package de.schwarz.emailparser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -23,14 +24,18 @@ public class ParserMain {
 	private void readLines() {
 		
 		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource("emails_folder_file.txt").getFile());
+		InputStream inputStream = classLoader.getResourceAsStream("emails_folder_file.txt");
+		
+		//File file = new File(classLoader.getResource("emails_folder_file.txt").getFile());
+		
 		Scanner input = null;
-		try {
-			input = new Scanner(file);
-		} catch (FileNotFoundException e) {
+		//try {
+			// input = new Scanner(file);
+			input = new Scanner(inputStream);
+		//} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//	e.printStackTrace();
+		//}
 
 		while(input.hasNextLine()) {
 		    String nextLine = input.nextLine();
