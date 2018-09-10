@@ -1,40 +1,36 @@
 # email-parser
 
-Email parser is a tool to extract email addresses from thunderbird folder file, that is the file including all the emails. On UNIX-systems you can find this folders in ~/.thunderbird/<PROFILE_ID>/Mail
+Email parser is a tool to extract email addresses from thunderbird folder file, that is the file including all the emails. On UNIX-systems you can find this folders in:
+```
+~/.thunderbird/<PROFILE_ID>/Mail/Local\ Folders
+```
+or
+
+```
+~/.thunderbird/<PROFILE_ID>/ImapMail
+```
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+git clone https://github.com/hermann77/email-parser.git
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+* JDK 8 (1.8) or newer 
+* Gradle: you can use gradle wrapper (*gradlew*) 
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+To build JAR file:
 
 ```
-Give the example
+gradlew build
 ```
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+
 
 ### Break down into end to end tests
 
