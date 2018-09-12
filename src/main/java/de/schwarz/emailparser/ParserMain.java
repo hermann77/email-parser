@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 
 public class ParserMain {
     
+	private ClassLoader classLoader;
+	
 	/**
 	 * Main method
 	 * @param args
@@ -22,20 +24,10 @@ public class ParserMain {
 	
 	
 	private void readLines() {
-		
+						
 		ClassLoader classLoader = getClass().getClassLoader();
-		InputStream inputStream = classLoader.getResourceAsStream("emails_folder_file.txt");
-		
-		//File file = new File(classLoader.getResource("emails_folder_file.txt").getFile());
-		
 		Scanner input = null;
-		//try {
-			// input = new Scanner(file);
-			input = new Scanner(inputStream);
-		//} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		//}
+		input = getInput(classLoader);
 
 		while(input.hasNextLine()) {
 		    String nextLine = input.nextLine();
@@ -49,6 +41,13 @@ public class ParserMain {
 	}
 	
 	
+	public static Scanner getInput(ClassLoader classLoader) {
+
+		InputStream inputStream = classLoader.getResourceAsStream("emails_folder_file.txt");
+		Scanner input = null;
+		input = new Scanner(inputStream);
+		return input;
+	}
 	
 	/**
 	 * 
