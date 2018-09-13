@@ -22,12 +22,16 @@ public class ParserMain {
 		
 	}
 	
+	public void PerserMain() {
+	//	classLoader = getClass().getClassLoader();
+	}
+	
 	
 	private void readLines() {
 						
-		ClassLoader classLoader = getClass().getClassLoader();
+
 		Scanner input = null;
-		input = getInput(classLoader);
+		input = getInput();
 
 		while(input.hasNextLine()) {
 		    String nextLine = input.nextLine();
@@ -41,8 +45,9 @@ public class ParserMain {
 	}
 	
 	
-	public static Scanner getInput(ClassLoader classLoader) {
+	public Scanner getInput() {
 
+		classLoader = getClass().getClassLoader();
 		InputStream inputStream = classLoader.getResourceAsStream("emails_folder_file.txt");
 		Scanner input = null;
 		input = new Scanner(inputStream);
