@@ -13,7 +13,6 @@ public class Parser {
 	 * Constructor
 	 */
 	public Parser() {
-		System.out.println("HERE");
 		classLoader = this.getClass().getClassLoader();
 		if(classLoader == null) {
 			System.out.println("classloader is NULL");
