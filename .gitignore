@@ -4,3 +4,6 @@ build/
 .settings/
 .idea/
 email-parser.iml
+email-parser.eml
+out/
+.classpath
