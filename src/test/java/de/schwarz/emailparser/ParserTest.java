@@ -4,13 +4,13 @@ package de.schwarz.emailparser;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.util.Scanner;
+
 public class ParserTest {
     @Test public void testSomeLibraryMethod() {
         ParserMain parserMain = new ParserMain();
+   //     Scanner input = ParserMain.getInput();
         
-        String [] expectedEmailsArray = {"test1@gmx.de", "test2@gmail.com"};
-        String [] actualEmailsArray = {"test1@gmx.de", "test2@gmail.com"};
-       
-        assertArrayEquals("readEmailAddresses()", expectedEmailsArray, actualEmailsArray);
+    //    assertFalse(input == null);
     }
 }
