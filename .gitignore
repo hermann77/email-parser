@@ -2,4 +2,6 @@
 bin/
 build/
 .settings/
+.idea/
+email-parser.iml
 
