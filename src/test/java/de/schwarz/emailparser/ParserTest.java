@@ -7,10 +7,11 @@ import static org.junit.Assert.*;
 import java.util.Scanner;
 
 public class ParserTest {
-    @Test public void testSomeLibraryMethod() {
-        ParserMain parserMain = new ParserMain();
-   //     Scanner input = ParserMain.getInput();
+	
+    @Test public void testInputIsNotNull() {
+        Parser parser = new Parser();
+        Scanner input = parser.getInput();
         
-    //    assertFalse(input == null);
+        assertFalse(input == null);
     }
 }
