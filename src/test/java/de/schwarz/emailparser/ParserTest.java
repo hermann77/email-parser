@@ -10,7 +10,7 @@ public class ParserTest {
 	
     @Test public void testInputIsNotNull() {
         Parser parser = new Parser();
-        Scanner input = parser.getInput();
+        Scanner input = parser.getInputFromResource();
         
         assertFalse(input == null);
     }

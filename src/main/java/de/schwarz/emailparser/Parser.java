@@ -22,7 +22,7 @@ public class Parser {
 	
 	public void readLines() {
 		Scanner input = null;
-		input = getInput();
+		input = getInputFromResource();
 
 		while(input.hasNextLine()) {
 		    String nextLine = input.nextLine();
@@ -34,9 +34,12 @@ public class Parser {
 
 		input.close();
 	}
-	
-	
-	public Scanner getInput() {
+
+	/**
+	 *
+	 * @return Scanner object from file placed in src/main/resources/emails_folder_file.txt
+	 */
+	public Scanner getInputFromResource() {
 
 		// classLoader = getClass().getClassLoader();
 		InputStream inputStream = classLoader.getResourceAsStream("emails_folder_file.txt");
