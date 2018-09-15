@@ -1,5 +1,7 @@
 package de.schwarz.emailparser;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -18,20 +20,20 @@ public class Parser {
 			System.out.println("classloader is NULL");
 		}
 	}
-	
-	
-	public void readLines() {
-		Scanner input = null;
-		input = getInputFromResource();
+
+    /**
+     * Reads Scanner obj line by line and outputs email address in the line with 'Final-Recipient'
+     * @param input
+     */
+	public void readLines(Scanner input) {
 
 		while(input.hasNextLine()) {
 		    String nextLine = input.nextLine();
 		    if(nextLine.contains("Final-Recipient")) { // line where to find E-Mail address
 		    	String address = extractEmailAddress(nextLine);
-		    	System.out.println("Address: " + address);
+		    	System.out.println(address);
 		    }
 		}
-
 		input.close();
 	}
 
@@ -47,7 +49,26 @@ public class Parser {
 		input = new Scanner(inputStream);
 		return input;
 	}
-	
+
+	/**
+	 *
+	 * @param fileString file name
+	 * @return Scanner object from file given in agrs
+	 */
+    public Scanner getInputFromFileInArgs(String fileString) {
+
+        File file = new File(fileString);
+
+        Scanner input = null;
+        try {
+            input = new Scanner(file);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return input;
+    }
+
 	/**
 	 * 
 	 * @param line
