@@ -26,8 +26,13 @@ jar {
     version = version
 }
 
+
+
+
 dependencies {
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+    compile 'mysql:mysql-connector-java:5.1.+'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
 }
 

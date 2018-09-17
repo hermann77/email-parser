@@ -32,11 +32,19 @@ public class ParserMain {
             // DATABASE selected/given
             else if(args.length == 2) {
                 Connection connection = DBConnection.getConnection();
+                if(connection == null) {
+                    System.out.println("connection is null");
+                }
+
                 Statement stmt = null;
                 ResultSet resultSet = null;
                 try {
                     stmt = connection.createStatement();
                     resultSet = stmt.executeQuery("SELECT nl_email FROM lid_subscribers LIMIT 10");
+                    while (resultSet.next()) {
+                        String nl_email = resultSet.getString(1);
+                        System.out.print("DB e-mail address: " + nl_email);
+                    }
                 }
                 catch (SQLException e) {
                     System.out.println("SQL query not executed: " + e.getErrorCode());
