@@ -31,7 +31,7 @@ public class DBConnection {
             }
         }
         catch (Exception e) {
-            System.out.println("DB driver not fount: " + e.getMessage());
+            System.out.println("DB driver not found: " + e.getMessage());
             System.out.println("DB CLASS NOT FOUND: " + e.getClass());
         }
 
