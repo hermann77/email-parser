@@ -3,6 +3,8 @@ package de.schwarz.emailparser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,6 +12,8 @@ import java.util.regex.Pattern;
 public class Parser {
 
 	private ClassLoader classLoader;
+	private List<String> emailAddresses;
+
 	
 	/**
 	 * Constructor
@@ -25,16 +29,22 @@ public class Parser {
      * Reads Scanner obj line by line and outputs email address in the line with 'Final-Recipient'
      * @param input
      */
-	public void readLines(Scanner input) {
+	public List<String> readLines(Scanner input) {
+
+		emailAddresses = new ArrayList<String>();
 
 		while(input.hasNextLine()) {
 		    String nextLine = input.nextLine();
 		    if(nextLine.contains("Final-Recipient")) { // line where to find E-Mail address
 		    	String address = extractEmailAddress(nextLine);
+
+				emailAddresses.add(address);
 		    	System.out.println(address);
 		    }
 		}
 		input.close();
+
+		return emailAddresses;
 	}
 
 	/**
