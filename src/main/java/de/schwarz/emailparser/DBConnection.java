@@ -8,7 +8,7 @@ public class DBConnection {
     private static String dbName = "lesenindeutschland";
     private static String username = "root";
     private static String password = "";
-    private static String url = "jdbc:mysql://localhost:3307/" + dbName + "?user=" + username
+    private static String url = "jdbc:mysql://localhost:3306/" + dbName + "?user=" + username
                                                                 + "&password=" + password ;
     private static String driverName = "com.mysql.jdbc.Driver";
     private static Connection connection;
@@ -31,7 +31,7 @@ public class DBConnection {
             }
         }
         catch (Exception e) {
-            System.out.println("DB driver not fount: " + e.getMessage());
+            System.out.println("DB driver not found: " + e.getMessage());
             System.out.println("DB CLASS NOT FOUND: " + e.getClass());
         }
 
