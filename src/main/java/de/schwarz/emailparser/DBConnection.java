@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 public class DBConnection {
     private static String dbName = "lesenindeutschland";
     private static String username = "root";
@@ -14,16 +15,19 @@ public class DBConnection {
     private static Connection connection;
 
 
-    public static Connection getConnection() {
+    public static Connection getConnection(String databaseName, String port) {
+
+        if(databaseName != null && port != null) {
+            url = "jdbc:mysql://localhost:" + port + "/" + databaseName + "?user=" + username
+                    + "&password=" + password;
+        }
+
         try {
             Class.forName(driverName).newInstance();
             try {
                 connection = DriverManager.getConnection(url);
                 if(connection == null) {
                     System.out.println("connection is NULL");
-                }
-                else {
-                    System.out.println("connection is NOT NULL");
                 }
             }
             catch (SQLException e) {
