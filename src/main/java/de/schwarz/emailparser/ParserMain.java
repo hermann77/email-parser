@@ -65,7 +65,12 @@ public class ParserMain {
 
 
 	private static void deleteEmailAddressesFromDB(String databaseName, List<String> emailAddressesToDelete, String port) {
-		
+
+	    System.out.println("HERE");
+        System.out.println("10. Adresse:" + emailAddressesToDelete.get(10));
+        System.out.println("100. Adresse:" + emailAddressesToDelete.get(100));
+
+
         Connection connection = DBConnection.getConnection(databaseName, port);
         if(connection == null) {
             System.out.println("connection is null");
@@ -90,9 +95,13 @@ public class ParserMain {
             }
             */
         }
+        catch (NullPointerException e) {
+            System.out.println("NullPointer");
+        }
         catch (SQLException e) {
             System.out.println("SQL query not executed: " + e.getErrorCode());
         }
+
 	}
 
 	

@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 public class Parser {
 
 	private ClassLoader classLoader;
-	private List<String> emailAddresses;
 
 	
 	/**
@@ -31,7 +30,7 @@ public class Parser {
      */
 	public List<String> readLines(Scanner input) {
 
-		emailAddresses = new ArrayList<String>();
+        List<String> emailAddresses = new ArrayList<String>();
 
 		while(input.hasNextLine()) {
 		    String nextLine = input.nextLine();
