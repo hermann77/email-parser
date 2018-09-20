@@ -66,11 +66,6 @@ public class ParserMain {
 
 	private static void deleteEmailAddressesFromDB(String databaseName, List<String> emailAddressesToDelete, String port) {
 
-	    System.out.println("HERE");
-        System.out.println("10. Adresse:" + emailAddressesToDelete.get(10));
-        System.out.println("100. Adresse:" + emailAddressesToDelete.get(100));
-
-
         Connection connection = DBConnection.getConnection(databaseName, port);
         if(connection == null) {
             System.out.println("connection is null");
@@ -81,27 +76,20 @@ public class ParserMain {
         ResultSet resultSet = null;
         try {
             //stmt = connection.createStatement();
-            stmt = connection.prepareStatement("DELETE FROM lid_subscribers WHERE nl_email IN (?)");
-            Object[] emailAddressesToDeleteArray = emailAddressesToDelete.toArray();
-            Array array = connection.createArrayOf("VARCHAR", emailAddressesToDeleteArray);
-            stmt.setArray(1, array);
-            int updateCount = stmt.executeUpdate();
+            for(String address : emailAddressesToDelete) {
+                stmt = connection.prepareStatement("DELETE FROM lid_subscribers WHERE nl_email IN (?)");
 
-            /*
-            resultSet = stmt.executeQuery("SELECT nl_email FROM lid_subscribers LIMIT 10");
-            while (resultSet.next()) {
-                String nl_email = resultSet.getString(1);
-                System.out.println("DB e-mail address: " + nl_email);
+                stmt.setString(1, address);
+                int updateCount = stmt.executeUpdate();
             }
-            */
+
         }
         catch (NullPointerException e) {
             System.out.println("NullPointer");
         }
         catch (SQLException e) {
-            System.out.println("SQL query not executed: " + e.getErrorCode());
+            System.out.println("SQL query not executed: " + e.toString());
         }
-
 	}
 
 	

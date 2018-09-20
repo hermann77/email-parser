@@ -14,24 +14,12 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-jar {
-    manifest {
-        attributes (
-        		'Implementation-Title': 'Gradle Quickstart',
-                'Implementation-Version': version,
-                'Main-Class': 'de.schwarz.emailparser.ParserMain'
-                )
-    }
-    baseName = 'email-parser'
-    version = version
-}
-
 
 task fatJar(type: Jar) {
     manifest {
-        attributes 'Implementation-Title': 'Gradle Jar File Example',
-                'Implementation-Version': version,
-                'Main-Class': 'de.schwarz.emailparser.ParserMain'
+        attributes  'Implementation-Title': 'E-Mail parser',
+                    'Implementation-Version': version,
+                    'Main-Class': 'de.schwarz.emailparser.ParserMain'
     }
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -39,11 +27,10 @@ task fatJar(type: Jar) {
 }
 
 
-
 dependencies {
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.21'
-    runtime "mysql:mysql-connector-java:5.1.21"
+ //   runtime "mysql:mysql-connector-java:5.1.21"
 }
 
