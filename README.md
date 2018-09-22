@@ -29,8 +29,11 @@ gradlew fatJar
 
 ### Usage
 ```
-java -jar build/libs/email-parser-all-<VERSION>.jar <emails_folder_file> <DATABASE_NAME> <TABLE_NAME> <ATTRIBUTE_NAME> 3307
+java -jar build/libs/email-parser-all-<VERSION>.jar <emails_folder_file> <DATABASE_NAME> <TABLE_NAME> <ATTRIBUTE_NAME> <DB_PORT>
 ```
+DB_PORT: 
+standard on unix: 3306
+on MacOS: 3307
 
 
 ## Running the tests
