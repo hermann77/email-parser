@@ -24,7 +24,12 @@ git clone https://github.com/hermann77/email-parser.git
 To build JAR file:
 
 ```
-gradlew build
+gradlew fatJar
+```
+
+### Usage
+```
+java -jar build/libs/email-parser-all-<VERSION>.jar <emails_folder_file> <DATABASE_NAME> <TABLE_NAME> <ATTRIBUTE_NAME> 3307
 ```
 
 
