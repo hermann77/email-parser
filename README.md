@@ -9,6 +9,15 @@ or
 ```
 ~/.thunderbird/<PROFILE_ID>/ImapMail
 ```
+This tool deletes all the email addresses from your database that are read in thunderbird emails folder file (auto-response emails) and have status codes:
+550 - mailbox unavailable
+511 - user unknown
+520 - user unknown
+553 - no such user
+554 - no account with this address
+and
+"Host or domain name not found" (no code)
+
 
 ## Getting Started
 
@@ -24,9 +33,20 @@ git clone https://github.com/hermann77/email-parser.git
 To build JAR file:
 
 ```
-gradlew build
+gradlew fatJar
 ```
 
+### Usage
+```
+java -jar build/libs/email-parser-all-<VERSION>.jar <emails_folder_file> <DATABASE_NAME> <TABLE_NAME> <ATTRIBUTE_NAME> <DB_PORT>
+```
+#### DB_PORT
+standard on unix: 3306
+on MacOS: 3307
+
+#### DATABASE_NAME, TABLE_NAME, ATTRIBUTE_NAME 
+used to delete email addresses from DB: "DELETE FROM " + tableName + " WHERE " + attributeName + " IN (?)"
+where ? is placeholder for read email addresses from thunderbird email autoresponses.
 
 ## Running the tests
 
