@@ -32,15 +32,44 @@ public class Parser {
 
         List<String> emailAddresses = new ArrayList<String>();
 
+        String address = ""; // to save email address till we get smtp status code
+        String statusCode = "";
+
 		while(input.hasNextLine()) {
 		    String nextLine = input.nextLine();
 		    if(nextLine.contains("Final-Recipient")) { // line where to find E-Mail address
-		    	String address = extractEmailAddress(nextLine);
+		    	address = extractEmailAddress(nextLine);
 
-				emailAddresses.add(address);
-		    	System.out.println(address);
+		    	System.out.println("address to delete: " + address);
 		    }
+			// only after we read diagnostic code
+			// and only on status codes: 550,
+			// we harves email address to later delete
+		    else if(nextLine.contains("Diagnostic-Code")) {
+		        // 550 - mailbox unavailable
+                // 511 - user unknown
+                // 520 - user unknown
+                // 553 - no such user
+                // 554 - no account with this address
+                // 552 - exceeded storage ==> don't delete for now
+		        if(nextLine.contains("550") ||
+                        nextLine.contains("511") ||
+                        nextLine.contains("520") ||
+                        nextLine.contains("553") ||
+                        nextLine.contains("554") ||
+                        nextLine.contains("Host or domain name not found")) {
+                    // System.out.println("STATUS CODE: 550 or domain name not found");
+                    emailAddresses.add(address);
+                }
+                else {
+                 //   System.out.println("STATUS CODE: " + nextLine);
+                }
+			}
+
 		}
+
+
+
 		input.close();
 
 		return emailAddresses;
