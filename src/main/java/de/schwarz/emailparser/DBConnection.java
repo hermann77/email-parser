@@ -26,12 +26,9 @@ public class DBConnection {
             Class.forName(driverName).newInstance();
             try {
                 connection = DriverManager.getConnection(url);
-                if(connection == null) {
-                    System.out.println("connection is NULL");
-                }
             }
             catch (SQLException e) {
-                System.out.println("DB connection error: " + e.getErrorCode());
+                System.out.println("DB connection error: " + e.toString());
             }
         }
         catch (Exception e) {

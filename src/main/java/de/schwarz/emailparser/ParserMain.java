@@ -72,14 +72,11 @@ public class ParserMain {
 
         Connection connection = DBConnection.getConnection(databaseName, port);
         if(connection == null) {
-            System.out.println("connection is null");
+            return;
         }
 
-        //Statement stmt = null;
         PreparedStatement stmt = null;
-        ResultSet resultSet = null;
         try {
-            //stmt = connection.createStatement();
             for(String address : emailAddressesToDelete) {
                 stmt = connection.prepareStatement("DELETE FROM " + tableName +" WHERE " + attributeName + " IN (?)");
 
@@ -89,7 +86,7 @@ public class ParserMain {
 
         }
         catch (NullPointerException e) {
-            System.out.println("NullPointer");
+            System.out.println("NullPointerException");
         }
         catch (SQLException e) {
             System.out.println("SQL query not executed: " + e.toString());
