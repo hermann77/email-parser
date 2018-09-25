@@ -38,7 +38,16 @@ gradlew fatJar
 
 ### Usage
 ```
-java -jar build/libs/email-parser-all-<VERSION>.jar <emails_folder_file> <DATABASE_NAME> <TABLE_NAME> <ATTRIBUTE_NAME> <DB_PORT>
+Usage:
+
+java -jar build/libs/email-parser-all-<VERSION>.jar
+-a,--attribute attribute name where the email addresses are saved
+-d,--dbname database name where the email addresses are saved
+-i,--input input file path
+-p,--port database port
+-t,--table database table name where the email addresses are
+saved
+
 ```
 #### DB_PORT
 standard on unix: 3306
