@@ -49,11 +49,11 @@ java -jar build/libs/email-parser-all-<VERSION>.jar
 saved
 
 ```
-#### DB_PORT
+#### DB PORT
 standard on unix: 3306
 on MacOS: 3307
 
-#### DATABASE_NAME, TABLE_NAME, ATTRIBUTE_NAME 
+#### DATABASE NAME, TABLE NAME, ATTRIBUTE NAME 
 used to delete email addresses from DB: "DELETE FROM " + tableName + " WHERE " + attributeName + " IN (?)"
 where ? is placeholder for read email addresses from thunderbird email autoresponses.
 
