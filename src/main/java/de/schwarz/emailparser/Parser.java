@@ -37,7 +37,7 @@ public class Parser {
 
 		while(input.hasNextLine()) {
 		    String nextLine = input.nextLine();
-		    if(nextLine.contains("Final-Recipient")) { // line where to find E-Mail address
+		    if(nextLine.toLowerCase().contains("final-recipient")) { // line where to find E-Mail address
 		    	address = extractEmailAddress(nextLine);
 
 		    	System.out.println("address to delete: " + address);
@@ -45,7 +45,7 @@ public class Parser {
 			// only after we read diagnostic code
 			// and only on status codes: 550,
 			// we harves email address to later delete
-		    else if(nextLine.contains("Diagnostic-Code")) {
+		    else if(nextLine.contains("Diagnostic-Code") || nextLine.contains("X-Supplementary-Info")) {
 		        // 550 - mailbox unavailable
                 // 511 - user unknown
                 // 520 - user unknown
