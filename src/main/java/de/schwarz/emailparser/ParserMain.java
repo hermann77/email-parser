@@ -2,7 +2,6 @@ package de.schwarz.emailparser;
 
 import org.apache.commons.cli.*;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -45,6 +44,10 @@ public class ParserMain {
         portOpt.setRequired(false);
         options.addOption(portOpt);
 
+        Option verboseOpt = new Option("v", "verbose", false, "verbose output without database delete");
+        verboseOpt.setRequired(false);
+        options.addOption(verboseOpt);
+        
         CommandLineParser cliParser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd = null;
@@ -80,7 +83,17 @@ public class ParserMain {
             if(port == null) {
                 port = "3306";
             }
-            deleteEmailAddressesFromDB(databaseName, tableName, attributeName, emailAddressesToDelete, port);
+            
+            if(cmd.hasOption("v")) {
+            	int emailAddressesToDeleteCount = emailAddressesToDelete.size();
+            	String emailAddressesToDeleteCountString = String.valueOf(emailAddressesToDeleteCount);
+            	System.out.println("Count of e-mail addresses to delete: " + emailAddressesToDeleteCountString);
+            	System.out.println("e-mail addresses were not deleted.");
+            }
+            else {
+            	System.out.println("Start to delete e-mail addresses !!!");
+            	deleteEmailAddressesFromDB(databaseName, tableName, attributeName, emailAddressesToDelete, port);
+            }
         }
 
 	}
