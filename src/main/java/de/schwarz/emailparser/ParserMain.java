@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class ParserMain {
     
@@ -99,6 +100,23 @@ public class ParserMain {
 	}
 
 
+    /**
+     * Intersection of two List<String>
+     * @param list1
+     * @param list2
+     * @return List<String>
+     */
+    private static List<String> buildIntersect(List<String> list1, List<String> list2) {
+        List<String> intersectList = null;
+
+        intersectList = list1.stream()
+                .distinct()
+                .filter(list2::contains)
+                .collect(Collectors.toList());
+
+        return intersectList;
+    }
+
 
 	private static void deleteEmailAddressesFromDB(String databaseName, String tableName, String attributeName, List<String> emailAddressesToDelete, String port) {
 
@@ -121,7 +139,7 @@ public class ParserMain {
             System.out.println("NullPointerException");
         }
         catch (SQLException e) {
-            System.out.println("SQL query not executed: " + e.toString());
+            System.out.println("SQL query not executed: " + e);
         }
 	}
 
