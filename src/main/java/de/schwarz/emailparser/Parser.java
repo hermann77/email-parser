@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -35,8 +36,14 @@ public class Parser {
         String address = ""; // to save email address till we get smtp status code
         String statusCode = "";
 
+	//	input.useDelimiter("\\n|\\s+");
+
 		while(input.hasNextLine()) {
+	//	while(input.hasNext("$")) {
 		    String nextLine = input.nextLine();
+
+	//		System.out.println("Nextline: " + nextLine);
+
 		    if(nextLine.contains("Final-Recipient")) { // line where to find E-Mail address
 		    	address = extractEmailAddress(nextLine);
 
@@ -58,18 +65,14 @@ public class Parser {
                         nextLine.contains("553") ||
                         nextLine.contains("554") ||
                         nextLine.contains("Host or domain name not found")) {
-                    // System.out.println("STATUS CODE: 550 or domain name not found");
+					System.out.println("STATUS CODE: 550 or domain name not found");
                     emailAddresses.add(address);
                 }
                 else {
-                 //   System.out.println("STATUS CODE: " + nextLine);
+                    System.out.println("STATUS CODE: " + nextLine);
                 }
 			}
-
 		}
-
-
-
 		input.close();
 
 		return emailAddresses;
@@ -89,22 +92,43 @@ public class Parser {
 	}
 
 	/**
+	 * Top-level management of the scanning entire given directory for e-mails with auto-responses.
+	 * The scanning/parsing the mbox files is put through to the readLines() method.
 	 *
-	 * @param fileString file name
-	 * @return Scanner object from file given in agrs
+	 * @param pathString directory name where the e-mail responses are saved
+	 * @return HashMap<String, List<String>> from file given in agrs
 	 */
-    public Scanner getInputFromFileInArgs(String fileString) {
+    public HashMap<String, List<String>> scanPath(String pathString) {
 
-        File file = new File(fileString);
+		HashMap<String, List<String>> emailAdrToDelete = new HashMap<>();
+        File path = new File(pathString);
+		/**
+		 * 	Subdirectories with e-mail responses.
+		 * 	Each subdirectory/mbox-directory must include a file 'mbox' with all the e-mails
+ 		 */
+		File[] mboxDirs = path.listFiles();
 
-        Scanner input = null;
-        try {
-            input = new Scanner(file);
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return input;
+		assert mboxDirs != null;
+		for (File mboxDir : mboxDirs) {
+			List<String> emailAddrToDeleteMbox = new ArrayList<>();
+
+			String mboxDirName = mboxDir.getName();
+			System.out.println("Dir: " + mboxDirName);
+
+			Scanner input = null;
+			try {
+				File mboxFileObj = new File(mboxDir.getAbsolutePath() + "/mbox");
+				input = new Scanner(mboxFileObj, "ISO-8859-1");
+			}
+			catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			emailAddrToDeleteMbox = this.readLines(input);
+			emailAdrToDelete.put(mboxDirName, emailAddrToDeleteMbox);
+		}
+
+		return emailAdrToDelete;
     }
 
 	/**
