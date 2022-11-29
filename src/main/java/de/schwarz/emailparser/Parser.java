@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
-	private ClassLoader classLoader;
+	private final ClassLoader classLoader;
 
 	
 	/**
@@ -47,7 +47,7 @@ public class Parser {
 		    if(nextLine.contains("Final-Recipient")) { // line where to find E-Mail address
 		    	address = extractEmailAddress(nextLine);
 
-		    	System.out.println("address to delete: " + address);
+		    //	System.out.println("address to delete: " + address);
 		    }
 			// only after we read diagnostic code
 			// and only on status codes: 550,
@@ -65,11 +65,11 @@ public class Parser {
                         nextLine.contains("553") ||
                         nextLine.contains("554") ||
                         nextLine.contains("Host or domain name not found")) {
-					System.out.println("STATUS CODE: 550 or domain name not found");
+					// System.out.println("STATUS CODE: 550 or domain name not found");
                     emailAddresses.add(address);
                 }
                 else {
-                    System.out.println("STATUS CODE: " + nextLine);
+                   // System.out.println("STATUS CODE: " + nextLine);
                 }
 			}
 		}
