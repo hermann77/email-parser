@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,29 +22,33 @@ public class ParserMain {
 
         Parser parser = new Parser();
         Scanner input = null;
-
+        List<String> emailAddressesToDelete = new ArrayList<String>();
+        HashMap<String, List<String>> emailAddressesToDeletePerSubDir = new HashMap<>();
 
         Options options = new Options();
-
         Option inputOpt = new Option("i", "input", true, "input file path");
-        inputOpt.setRequired(true);
+        inputOpt.setRequired(false);
         options.addOption(inputOpt);
 
         Option dbNameOpt = new Option("d", "dbname", true, "database name where the email addresses are saved");
-        dbNameOpt.setRequired(true);
+        dbNameOpt.setRequired(false);
         options.addOption(dbNameOpt);
 
         Option tableOpt = new Option("t", "table", true, "database table name where the email addresses are saved");
-        tableOpt.setRequired(true);
+        tableOpt.setRequired(false);
         options.addOption(tableOpt);
 
         Option attrOpt = new Option("a", "attribute", true, "attribute name where the email addresses are saved");
-        attrOpt.setRequired(true);
+        attrOpt.setRequired(false);
         options.addOption(attrOpt);
 
         Option portOpt = new Option("p", "port", true, "database port");
         portOpt.setRequired(false);
         options.addOption(portOpt);
+
+        Option testOpt = new Option("tp", "test-parser", true, "only for testing email parser");
+        testOpt.setRequired(false);
+        options.addOption(testOpt);
 
         CommandLineParser cliParser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
@@ -59,32 +64,39 @@ public class ParserMain {
             System.exit(1);
         }
 
-
         if(args.length == 0) {
             input = parser.getInputFromResource();
-            parser.readLines(input);
+            emailAddressesToDelete = parser.readLines(input);
         }
         // file name given in args
         else {
-            String inputFile = cmd.getOptionValue("input");
+            String inputPath = cmd.getOptionValue("input");
             String databaseName = cmd.getOptionValue("dbname");
             String tableName = cmd.getOptionValue("table");
             String attributeName = cmd.getOptionValue("attribute");
             String port = cmd.getOptionValue("port");
 
-            input = parser.getInputFromFileInArgs(inputFile);
-
-            List<String> emailAddressesToDelete = new ArrayList<String>();
-            emailAddressesToDelete = parser.readLines(input);
+            emailAddressesToDeletePerSubDir = parser.scanPath(inputPath);
 
             if(port == null) {
                 port = "3306";
             }
-            deleteEmailAddressesFromDB(databaseName, tableName, attributeName, emailAddressesToDelete, port);
+
+        //    deleteEmailAddressesFromDB(databaseName, tableName, attributeName, emailAddressesToDelete, port);
         }
 
-	}
 
+        emailAddressesToDeletePerSubDir.entrySet().parallelStream().forEach((entry) -> {
+            System.out.println();
+            System.out.println("forEach");
+            System.out.print("Subdirname: " + entry.getKey() + "");
+            List<String> emailsList = entry.getValue();
+            for (String address : emailsList) {
+                System.out.println("Address: " + address);
+            }
+        });
+
+	}
 
 
 
