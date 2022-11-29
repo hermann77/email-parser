@@ -4,16 +4,13 @@ apply plugin: 'application'
 
 mainClassName = 'de.schwarz.emailparser.ParserMain'
 
-version = '0.5.0'
-
+version = '0.6.1'
 
 repositories {
 	mavenCentral()
 }
-
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
 
 task fatJar(type: Jar) {
     manifest {
@@ -25,7 +22,6 @@ task fatJar(type: Jar) {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
-
 
 dependencies {
     // Use JUnit test framework
