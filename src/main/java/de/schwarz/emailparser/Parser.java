@@ -91,6 +91,7 @@ public class Parser {
 		return input;
 	}
 
+
 	/**
 	 * Top-level management of the scanning entire given directory for e-mails with auto-responses.
 	 * The scanning/parsing the mbox files is put through to the readLines() method.
@@ -130,6 +131,7 @@ public class Parser {
 
 		return emailAdrToDelete;
     }
+
 
 	/**
 	 * 
