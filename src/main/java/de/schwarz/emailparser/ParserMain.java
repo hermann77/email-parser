@@ -83,11 +83,11 @@ public class ParserMain {
                 port = "3306";
             }
 
-        //    deleteEmailAddressesFromDB(databaseName, tableName, attributeName, emailAddressesToDelete, port);
+            emailAddressesToDelete = processIntersection(emailAddressesToDeletePerSubDir);
+
+            //    deleteEmailAddressesFromDB(databaseName, tableName, attributeName, emailAddressesToDelete, port);
         }
 
-
-        emailAddressesToDelete = processIntersection(emailAddressesToDeletePerSubDir);
 
         System.out.println("Amount of entire intersection: " + emailAddressesToDelete.size());
 
