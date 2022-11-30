@@ -2,7 +2,6 @@ package de.schwarz.emailparser;
 
 import org.apache.commons.cli.*;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class ParserMain {
@@ -87,17 +87,64 @@ public class ParserMain {
         }
 
 
-        emailAddressesToDeletePerSubDir.entrySet().parallelStream().forEach((entry) -> {
-            System.out.println();
-            System.out.println("forEach");
-            System.out.print("Subdirname: " + entry.getKey() + "");
-            List<String> emailsList = entry.getValue();
-            for (String address : emailsList) {
-                System.out.println("Address: " + address);
-            }
-        });
+        emailAddressesToDelete = processIntersection(emailAddressesToDeletePerSubDir);
+
+        System.out.println("Amount of entire intersection: " + emailAddressesToDelete.size());
+
+        for (String address : emailAddressesToDelete) {
+            System.out.println("Address: " + address);
+        }
 
 	}
+
+
+    /**
+     * Top level intersection processing
+     * where we take multiple lists List<String>
+     * wrapped in a HashMap (HashMap<String, List<String>>):
+     * for every directory
+     */
+    private static List<String> processIntersection(HashMap<String, List<String>> emailAddressesToDeletePerSubDir) {
+        List<String> intersectList = new ArrayList<String>();
+
+        AtomicInteger entryCounter = new AtomicInteger();
+
+        intersectList = emailAddressesToDeletePerSubDir.entrySet().stream()
+                .map(entry -> {
+                    entryCounter.getAndIncrement();
+                    System.out.println("Processing entry " + entryCounter.get()
+                            + " :: Directory " + entry.getKey()
+                            + " :: Amount of email addresses: " + entry.getValue().size());
+                    // map only the email list
+                    return entry.getValue();
+                })
+                .reduce((intersect, list) -> {
+                    return buildIntersect(intersect, list);
+                })
+                .orElse(new ArrayList<String>());
+
+        /*
+        emailAddressesToDeletePerSubDir.forEach((key, emailsList) -> {
+            System.out.println();
+            System.out.println("forEach");
+            System.out.print("Subdirname: " + key + "  ");
+
+            System.out.println("Amount of e-mail addresses: " + emailsList.size());
+
+            if (entryCounter.get() == 0) {
+                intersectList = emailsList;
+            } else {
+                List<String> intersectListAsList = intersectList;
+                List<String> newIntersect = buildIntersect(intersectListAsList, emailsList);
+                intersectList.set(newIntersect);
+            }
+
+            entryCounter.getAndIncrement();
+        });
+         */
+
+        return intersectList;
+    }
 
 
     /**
@@ -107,7 +154,17 @@ public class ParserMain {
      * @return List<String>
      */
     private static List<String> buildIntersect(List<String> list1, List<String> list2) {
-        List<String> intersectList = null;
+
+        if (list2.size() == 0) {
+            return new ArrayList<String>();
+        }
+        else {
+            if (list1.size() == 0) {
+                return list2;
+            }
+        }
+
+        List<String> intersectList = new ArrayList<String>();
 
         intersectList = list1.stream()
                 .distinct()
@@ -143,6 +200,5 @@ public class ParserMain {
         }
 	}
 
-	
-	
+
 }
