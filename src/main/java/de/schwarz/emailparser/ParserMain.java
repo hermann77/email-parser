@@ -123,26 +123,6 @@ public class ParserMain {
                 })
                 .orElse(new ArrayList<String>());
 
-        /*
-        emailAddressesToDeletePerSubDir.forEach((key, emailsList) -> {
-            System.out.println();
-            System.out.println("forEach");
-            System.out.print("Subdirname: " + key + "  ");
-
-            System.out.println("Amount of e-mail addresses: " + emailsList.size());
-
-            if (entryCounter.get() == 0) {
-                intersectList = emailsList;
-            } else {
-                List<String> intersectListAsList = intersectList;
-                List<String> newIntersect = buildIntersect(intersectListAsList, emailsList);
-                intersectList.set(newIntersect);
-            }
-
-            entryCounter.getAndIncrement();
-        });
-         */
-
         return intersectList;
     }
 
@@ -158,7 +138,7 @@ public class ParserMain {
         if (list2.size() == 0) {
             return new ArrayList<String>();
         }
-        else {
+        else { // on first call list1 is empty, so we build no intersection but just list2
             if (list1.size() == 0) {
                 return list2;
             }
