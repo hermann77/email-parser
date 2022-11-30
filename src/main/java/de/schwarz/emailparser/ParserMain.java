@@ -85,14 +85,15 @@ public class ParserMain {
 
             emailAddressesToDelete = processIntersection(emailAddressesToDeletePerSubDir);
 
-            //    deleteEmailAddressesFromDB(databaseName, tableName, attributeName, emailAddressesToDelete, port);
+            // do delete email addresses
+            deleteEmailAddressesFromDB(databaseName, tableName, attributeName, emailAddressesToDelete, port);
         }
 
 
         System.out.println("Amount of entire intersection: " + emailAddressesToDelete.size());
 
         for (String address : emailAddressesToDelete) {
-            System.out.println("Address: " + address);
+            System.out.println(address);
         }
 
 	}
