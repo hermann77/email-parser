@@ -2,6 +2,8 @@ package de.schwarz.emailparser;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 import static org.junit.Assert.*;
@@ -28,10 +30,9 @@ public class ParserTest {
      */
     @Test public void testInputIsNotNull() {
         Parser parser = new Parser();
-//        Scanner input = parser.scanPath("emails_folder_file.txt");
-    //    HashMap<String, List<String>> emailAdressesToDelete = parser.scanPath("E-Mails_Export");
+        HashMap<String, List<String>> emailAddressesToDeletePerSubDir = new HashMap<>();
+        emailAddressesToDeletePerSubDir = parser.scanPath("E-Mails_Export");
 
-    //    assertFalse(emailAdressesToDelete == null);
-        assertTrue(true);
+        assertNotNull(emailAddressesToDeletePerSubDir);
     }
 }
