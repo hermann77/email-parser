@@ -49,6 +49,24 @@ java -jar build/libs/email-parser-all-<VERSION>.jar
 saved
 
 ```
+
+```
+Example usage:
+
+java -jar build/libs/email-parser-all-0.6.1.jar -i E-Mails_Export/ -d DATABASE_NAME -t TABLE_NAME -a COLUMN_NAME
+```
+
+`E-Mails_Export/` must include one or more subdirectories including mbox file:
+```
+E-Mails_Export/
+├── 2018-01-01
+│   └── mbox
+├── 2018-01-02
+│   └── mbox
+├── 2018-01-03
+│   └── mbox
+```
+
 #### DB PORT
 standard on unix: 3306
 on MacOS: 3307
